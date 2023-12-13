@@ -1,4 +1,4 @@
-// Employee.tsx
+
 import React, { useState } from "react";
 import SearchBox from "../SearchBox/SearchBox";
 import RoleDropdown from "../RoleDropdown/RoleDropdown";
@@ -6,6 +6,7 @@ import RoleDropdown from "../RoleDropdown/RoleDropdown";
 type EmployeeType = {
   id: number;
   name: string;
+  role: string;
 };
 
 type EmployeeProps = {
@@ -20,6 +21,15 @@ const Employee = ({ employees }: EmployeeProps) => {
   });
 
   const [employeeTickets, setEmployeeTickets] = useState(initialEmployeeTickets);
+  const [filteredEmployees, setFilteredEmployees] = useState<EmployeeType[]>(employees);
+  const [selectedRole, setSelectedRole] = useState<string | null>(null);
+
+  const handleSearch = (searchTerm: string) => {
+    const filtered = employees.filter((employee) =>
+      employee.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setFilteredEmployees(filtered);
+  };
 
   const handleIncrement = (id: number) => {
     setEmployeeTickets((prevTickets) => ({
@@ -40,10 +50,12 @@ const Employee = ({ employees }: EmployeeProps) => {
   return (
     <div>
       <h1>Ticket Managing System</h1>
-      {employees.map((employee) => (
+      <RoleDropdown employees={employees} onSelectRole={(role) => setSelectedRole(role)} />
+      <SearchBox onSearch={handleSearch} />
+      {filteredEmployees.map((employee) => (
         <div key={employee.id}>
-          <p>ID: {employee.id}</p>
           <p>Name: {employee.name}</p>
+          <p>Role: {employee.role}</p>
           <p>Tickets: {employeeTickets[employee.id]}</p>
           <button onClick={() => handleIncrement(employee.id)}>Increment</button>
           <button onClick={() => handleDecrement(employee.id)}>Decrement</button>

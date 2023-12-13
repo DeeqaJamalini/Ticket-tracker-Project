@@ -1,26 +1,28 @@
-// SearchBox.tsx
+
 import React, { useState } from "react";
 
 type SearchBoxProps = {
-  onSearch: (query: string) => void;
+  onSearch: (searchTerm: string) => void;
 };
 
 const SearchBox = ({ onSearch }: SearchBoxProps) => {
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
 
-  const handleSearch = () => {
-    onSearch(searchQuery);
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newSearchTerm = event.target.value;
+    setSearchTerm(newSearchTerm);
+    onSearch(newSearchTerm);
   };
 
   return (
     <div>
       <input
         type="text"
-        placeholder="Search"
-        value={searchQuery}
-        onChange={(e) => setSearchQuery(e.target.value)}
+        id="searchInput"
+        value={searchTerm}
+        onChange={handleInputChange}
+        placeholder="Search name"
       />
-      <button onClick={handleSearch}>Search</button>
     </div>
   );
 };
