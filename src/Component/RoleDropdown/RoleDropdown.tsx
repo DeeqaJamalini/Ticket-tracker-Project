@@ -1,34 +1,28 @@
-// RoleDropdown.tsx
-import React, { useState } from "react";
+
+import React from "react";
 
 type RoleDropdownProps = {
-  roles: string[];
-  onSelect: (role: string) => void;
+  employees: { role: string }[];
+  onSelectRole: (selectedRole: string) => void;
 };
 
-const RoleDropdown = ({ roles, onSelect }: RoleDropdownProps) => {
-  const [selectedRole, setSelectedRole] = useState("");
-
-  const handleSelect = () => {
-    onSelect(selectedRole);
+const RoleDropdown = ({ employees, onSelectRole }: RoleDropdownProps) => {
+    const roles = Array.from(new Set(employees.map((employee) => employee.role)));
+  
+    return (
+      <div>
+        <label>Search by Role:</label>
+        <select onChange={(e) => onSelectRole(e.target.value)}>
+          <option value="">All Roles</option>
+          {roles.map((role) => (
+            <option key={role} value={role}>
+              {role}
+            </option>
+          ))}
+        </select>
+      </div>
+    );
   };
-
-  return (
-    <div>
-      <select
-        value={selectedRole}
-        onChange={(e) => setSelectedRole(e.target.value)}
-      >
-        <option value="">Select Role</option>
-        {roles.map((role) => (
-          <option key={role} value={role}>
-            {role}
-          </option>
-        ))}
-      </select>
-      <button onClick={handleSelect}>Select</button>
-    </div>
-  );
-};
+  
 
 export default RoleDropdown;
