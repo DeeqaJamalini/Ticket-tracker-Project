@@ -22,15 +22,30 @@ const Employee = ({ employees }: EmployeeProps) => {
 
   const [employeeTickets, setEmployeeTickets] = useState(initialEmployeeTickets);
   const [filteredEmployees, setFilteredEmployees] = useState<EmployeeType[]>(employees);
-  const [selectedRole, setSelectedRole] = useState<string | null>(null);
+  //const [selectedRole, setSelectedRole] = useState<string | null>(null);
 
+ 
   const handleSearch = (searchTerm: string) => {
-    const filtered = employees.filter((employee) =>
-      employee.name.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-    setFilteredEmployees(filtered);
+    const filteredEmployees = employees.filter((employee) => {
+      return employee.name.toLowerCase().includes(searchTerm.toLowerCase());
+    });
+
+    setFilteredEmployees(filteredEmployees);
   };
 
+  
+
+  const handleRoleDropdown = (selectedRole: string) => {
+
+    const filteredEmployees = employees.filter((employee) => {
+      return employee.role.toLowerCase().includes(selectedRole.toLowerCase());
+    });
+
+    setFilteredEmployees(filteredEmployees);
+  }
+
+
+  
   const handleIncrement = (id: number) => {
     setEmployeeTickets((prevTickets) => ({
       ...prevTickets,
@@ -50,7 +65,7 @@ const Employee = ({ employees }: EmployeeProps) => {
   return (
     <div>
       <h1>Ticket Managing System</h1>
-      <RoleDropdown employees={employees} onSelectRole={(role) => setSelectedRole(role)} />
+      <RoleDropdown  employees={employees} onSelectRole={handleRoleDropdown} />
       <SearchBox onSearch={handleSearch} />
       {filteredEmployees.map((employee) => (
         <div key={employee.id}>
