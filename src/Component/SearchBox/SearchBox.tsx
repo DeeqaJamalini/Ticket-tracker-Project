@@ -1,3 +1,4 @@
+import "./SearchBox.scss";
 
 import React, { useState } from "react";
 
@@ -15,13 +16,13 @@ const SearchBox = ({ onSearch }: SearchBoxProps) => {
   };
 
   return (
-    <div>
+    <div className="searchbox">
       <input
         type="text"
         id="searchInput"
         value={searchTerm}
         onChange={handleInputChange}
-        placeholder="Search name"
+        placeholder="Search by name"
       />
     </div>
   );

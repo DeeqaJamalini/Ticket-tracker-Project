@@ -1,12 +1,16 @@
 import React from "react";
 import Employee from "./Component/Employee/Employee";
 import Team from "./Data/Team"
+import "./App.scss";
 
 const App = () => {
   return (
-    <div>
+    
+    <div className = "employees">
+           
       <Employee employees={Team} />
     </div>
+  
   );
 };
 

@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import SearchBox from "../SearchBox/SearchBox";
 import RoleDropdown from "../RoleDropdown/RoleDropdown";
+import "./Employee.scss";
 
 type EmployeeType = {
   id: number;
@@ -63,12 +64,16 @@ const Employee = ({ employees }: EmployeeProps) => {
   };
 
   return (
-    <div>
-      <h1>Ticket Managing System</h1>
-      <RoleDropdown  employees={employees} onSelectRole={handleRoleDropdown} />
+    <div className="employeecard-search-dropdown" >
+       <h1 className="header">Ticket Managing System</h1>
+
+      <RoleDropdown employees={employees} onSelectRole={handleRoleDropdown} />
       <SearchBox onSearch={handleSearch} />
+
+      <div className = "employeeCard">
       {filteredEmployees.map((employee) => (
-        <div key={employee.id}>
+        
+        <div className= "employee" key={employee.id}>
           <p>Name: {employee.name}</p>
           <p>Role: {employee.role}</p>
           <p>Tickets: {employeeTickets[employee.id]}</p>
@@ -76,6 +81,7 @@ const Employee = ({ employees }: EmployeeProps) => {
           <button onClick={() => handleDecrement(employee.id)}>Decrement</button>
         </div>
       ))}
+      </div>
     </div>
   );
 };
