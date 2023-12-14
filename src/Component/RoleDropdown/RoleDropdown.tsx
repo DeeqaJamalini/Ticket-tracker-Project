@@ -1,3 +1,4 @@
+import "./RoleDropDown.scss"
 
 import React from "react";
 
@@ -10,10 +11,10 @@ const RoleDropdown = ({ employees, onSelectRole }: RoleDropdownProps) => {
     const roles = Array.from(new Set(employees.map((employee) => employee.role)));
   
     return (
-      <div>
-        <label>Search by Role:</label>
+      <div className="dropdown">
+        <label  className="dropdown__label"></label>
         <select onChange={(e) => onSelectRole(e.target.value)}>
-          <option value="">All Roles</option>
+          <option className="dropdown__option" value="">All Roles</option>
           {roles.map((role) => (
             <option key={role} value={role}>
               {role}
